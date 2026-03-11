@@ -1067,11 +1067,19 @@ section {
   text-align: center;
 }
 
-.stat-number {
+/* .stat-number {
   font-size: 3.5rem;
   font-weight: 800;
   color: var(--main-color);
   margin-bottom: 0.5rem;
+} */
+.stat-number{
+font-size: 40px;
+font-weight: bold;
+color: #00abf0;
+}
+.stat-number::after{
+content: "+";
 }
 
 .stat-label {
