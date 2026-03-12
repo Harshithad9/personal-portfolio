@@ -854,11 +854,12 @@
             </div>
         </div>
     </section>
-<!-------contact------>
+
+    <!-------contact------>
 <section class="contact" id="contact">
     <h2 class="heading">Contact <span>Me!</span><br>Have a project or opportunity? Let's connect.</h2>
     
-    <!-- SINGLE FORM with Formspree action -->
+    <!-- SINGLE FORM with correct Formspree action -->
     <form action="https://formspree.io/f/xlgpnjjy" method="POST" role="form" aria-label="Contact Form">
         <div class="input-box">
             <div class="input-field">
@@ -889,6 +890,19 @@
         </div>
     </form>
 </section>
+
+<!-- Add this script to help with debugging -->
+<script>
+    document.querySelector('.contact form').addEventListener('submit', function(e) {
+        // Don't prevent default - let Formspree do its thing
+        console.log('Form submitted!'); // Check browser console to see if this appears
+        
+        // Optional: Show user that submission is in progress
+        const btn = this.querySelector('.btn');
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+    });
+</script>
 
     <!--footer design-->
     <footer class="footer">
