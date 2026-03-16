@@ -3,7 +3,7 @@
 Welcome to my personal portfolio website! This is where I showcase my projects, skills, achievements, and resume in a clean and responsive design.
 
 ## 🔗 Live Site
-[Visit Portfolio](https://codebyharshitha.netlify.app/)
+[Visit Portfolio](https://codebyharshithad.netlify.app)
 
 ## 📁 Features
 
