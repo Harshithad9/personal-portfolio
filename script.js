@@ -40,7 +40,7 @@ window.onscroll = () => {
 
 // Enhanced Skills Section JavaScript
 document.addEventListener("DOMContentLoaded", () => {
-  // Tab functionality for skills
+
   const tabButtons = document.querySelectorAll(".tab-btn")
   const tabContents = document.querySelectorAll(".tab-content")
 
@@ -48,22 +48,19 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", () => {
       const targetTab = button.getAttribute("data-tab")
 
-      // Remove active class from all buttons and contents
       tabButtons.forEach((btn) => btn.classList.remove("active"))
       tabContents.forEach((content) => content.classList.remove("active"))
 
-      // Add active class to clicked button and corresponding content
       button.classList.add("active")
       const targetContent = document.getElementById(targetTab)
+
       if (targetContent) {
         targetContent.classList.add("active")
-        // Animate progress bars when tab becomes active
         animateProgressBars(targetTab)
       }
     })
   })
 
-  // Function to animate progress bars
   function animateProgressBars(tabId) {
     const activeTab = document.getElementById(tabId)
     if (!activeTab) return
@@ -72,24 +69,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     progressFills.forEach((fill, index) => {
       const width = fill.getAttribute("data-width")
-      // Reset width first
       fill.style.width = "0%"
-      setTimeout(
-        () => {
-          fill.style.width = width + "%"
-        },
-        index * 100 + 200,
-      )
+
+      setTimeout(() => {
+        fill.style.width = width + "%"
+      }, index * 100 + 200)
     })
   }
 
-  // Initialize progress bars for the first tab
   setTimeout(() => {
     animateProgressBars("programming")
   }, 500)
 
-  // Intersection Observer for skill cards animation
+  // Skill card animation
   const skillCards = document.querySelectorAll(".skill-card")
+
   const skillObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry, index) => {
@@ -101,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
     },
-    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
   )
 
   skillCards.forEach((card) => {
@@ -111,8 +105,9 @@ document.addEventListener("DOMContentLoaded", () => {
     skillObserver.observe(card)
   })
 
-  // Certificate cards animation
+  // Certificate animation
   const certificateCards = document.querySelectorAll(".certificate-card")
+
   const certificateObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry, index) => {
@@ -124,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
     },
-    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
   )
 
   certificateCards.forEach((card) => {
@@ -134,8 +129,9 @@ document.addEventListener("DOMContentLoaded", () => {
     certificateObserver.observe(card)
   })
 
-  // Counter animation for achievement summary
+  // Counter animation
   const statNumbers = document.querySelectorAll(".stat-number")
+
   const statsObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -146,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
     },
-    { threshold: 0.5 },
+    { threshold: 0.5 }
   )
 
   statNumbers.forEach((stat) => {
@@ -156,8 +152,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function animateCounter(element, target) {
     let current = 0
     const increment = target / 50
+
     const timer = setInterval(() => {
       current += increment
+
       if (current >= target) {
         element.textContent = target
         clearInterval(timer)
@@ -167,11 +165,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 30)
   }
 
-  // Mobile touch handling for better UX
+  // Touch device improvements
   if ("ontouchstart" in window) {
     document.body.classList.add("touch-device")
 
-    // Improve touch interactions for skill cards
     skillCards.forEach((card) => {
       card.addEventListener("touchstart", () => {
         card.style.transform = "scale(0.98)"
@@ -184,7 +181,6 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     })
 
-    // Improve touch interactions for certificate cards
     certificateCards.forEach((card) => {
       card.addEventListener("touchstart", () => {
         card.style.transform = "scale(0.98)"
@@ -198,12 +194,14 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  // Handle orientation changes
+  // Orientation change fix
   window.addEventListener("orientationchange", () => {
     setTimeout(() => {
       const activeTab = document.querySelector(".tab-content.active")
+
       if (activeTab) {
         const progressFills = activeTab.querySelectorAll(".progress-fill")
+
         progressFills.forEach((fill) => {
           const width = fill.getAttribute("data-width")
           fill.style.width = width + "%"
@@ -212,14 +210,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100)
   })
 
-  // Contact form handling
-  const contactForm = document.querySelector("form")
-  if (contactForm) {
-    contactForm.addEventListener("submit", (e) => {
-      e.preventDefault()
+  // CONTACT FORM SUCCESS POPUP (Formspree compatible)
+  const contactForm = document.querySelector(".contact form")
 
-      // Show success message
+  if (contactForm) {
+    contactForm.addEventListener("submit", () => {
+
       const message = document.createElement("div")
+
       message.style.cssText = `
         position: fixed;
         top: 20px;
@@ -231,7 +229,9 @@ document.addEventListener("DOMContentLoaded", () => {
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         z-index: 1000;
         font-size: 1.4rem;
+        animation: slideInRight 0.4s ease;
       `
+
       message.innerHTML = '<i class="bx bx-check"></i> Message sent successfully!'
 
       document.body.appendChild(message)
@@ -239,53 +239,54 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         message.remove()
       }, 3000)
-
-      // Reset form
-      contactForm.reset()
     })
   }
+
 })
 
-// Add CSS animations
+
+
+// CSS animations
 const style = document.createElement("style")
+
 style.textContent = `
-  @keyframes slideInRight {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
   }
-  
-  .bx-spin {
-    animation: spin 1s linear infinite;
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
-  
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  
-  /* Touch device optimizations */
-  .touch-device .skill-card:hover {
-    transform: none;
-    box-shadow: none;
-  }
-  
-  .touch-device .certificate-card:hover {
-    transform: none;
-    box-shadow: none;
-  }
-  
-  .touch-device .skill-card:active {
-    transform: scale(0.98);
-  }
-  
-  .touch-device .certificate-card:active {
-    transform: scale(0.98);
-  }
+}
+
+.bx-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.touch-device .skill-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.touch-device .certificate-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.touch-device .skill-card:active {
+  transform: scale(0.98);
+}
+
+.touch-device .certificate-card:active {
+  transform: scale(0.98);
+}
 `
+
 document.head.appendChild(style)
