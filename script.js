@@ -211,39 +211,64 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   // CONTACT FORM SUCCESS POPUP (Formspree compatible)
-  const contactForm = document.querySelector(".contact form")
+  // CONTACT FORM (AJAX - no redirect)
+const contactForm = document.querySelector(".contact form")
 
-  if (contactForm) {
-    contactForm.addEventListener("submit", () => {
+if (contactForm) {
+contactForm.addEventListener("submit", async function(e){
 
-      const message = document.createElement("div")
+e.preventDefault();   // IMPORTANT: stops redirect
 
-      message.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #10b981;
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 1000;
-        font-size: 1.4rem;
-        animation: slideInRight 0.4s ease;
-      `
+const formData = new FormData(contactForm);
 
-      message.innerHTML = '<i class="bx bx-check"></i> Message sent successfully!'
+try{
 
-      document.body.appendChild(message)
+const response = await fetch(contactForm.action,{
+method:"POST",
+body:formData,
+headers:{
+"Accept":"application/json"
+}
+});
 
-      setTimeout(() => {
-        message.remove()
-      }, 3000)
-    })
-  }
+if(response.ok){
 
-})
+const message = document.createElement("div");
 
+message.style.cssText = `
+position: fixed;
+top: 20px;
+right: 20px;
+background: #10b981;
+color: white;
+padding: 1rem 2rem;
+border-radius: 8px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+z-index: 1000;
+font-size: 1.4rem;
+animation: slideInRight 0.4s ease;
+`;
+
+message.innerHTML = '<i class="bx bx-check"></i> Message sent successfully!';
+
+document.body.appendChild(message);
+
+setTimeout(()=>{
+message.remove();
+},3000);
+
+contactForm.reset();
+
+}
+
+}catch(error){
+alert("Something went wrong. Please try again.");
+}
+
+});
+}
+
+});
 
 
 // CSS animations
